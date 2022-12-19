@@ -1,0 +1,11 @@
+package idris2-ffigen
+
+authors    = "xavierzwirtz"
+version    = 0.1.0
+sourcedir  = "src"
+depends    = contrib
+           , base         >= 0.4.0
+           , json         >= 0.5.0
+
+main = FFIGen.Main
+executable = idris2-ffigen

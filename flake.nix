@@ -50,7 +50,7 @@
                        , header
                        , libName
                        , clib
-                       , rootModuleName
+                       , moduleName
                        , structs
                        , functions
                        , ccArgs ? null
@@ -64,8 +64,7 @@
                       ${header} > $out
                   '';
                 args = builtins.toJSON {
-                  inherit libName;
-                  moduleName = "${rootModuleName}.Bindings";
+                  inherit libName moduleName;
                   structsToParse = structs;
                   functionsToParse = functions;
                 };
@@ -87,22 +86,12 @@
                     depends    = contrib
                                , base         >= 0.6.0
 
-                    modules = ${rootModuleName}
-                            , ${rootModuleName}.Bindings
+                    modules = ${moduleName}
                   '';
                 };
-                entryModule = pkgs.writeTextFile {
-                  name = "${rootModuleName}.idr";
-                  text = ''
-                    module ${rootModuleName}
-                    import public ${rootModuleName}.Bindings
-                  '';
-                };
-
                 idris2Src = pkgs.runCommand "generate-${packageName}-idris" { } ''
-                  mkdir -p $out/src/${rootModuleName}
-                  cp -L ${entryModule} $out/src/${rootModuleName}.idr
-                  cp -L ${generated}/idris.idr $out/src/${rootModuleName}/Bindings.idr
+                  mkdir -p $out/src
+                  cp -L ${generated}/idris.idr $out/src/${moduleName}.idr
                   cp -L ${ipkg} $out/${packageName}.ipkg
                 '';
               in

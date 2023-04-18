@@ -83,7 +83,7 @@ app args = do
   (file, fileName, compileSettings) <- parseArgs args
   contents <- readFile file
   case parse contents of
-    Nothing => throw ParseError
+    Nothing => throw FFIGen.Main.ParseError
     Just json => do
       parsed <- moduleParser
         (map structName compileSettings.structsToParse)

@@ -3,25 +3,9 @@
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs";
   inputs.flake-utils.url = "github:numtide/flake-utils";
-  # inputs.idris2-pkgs.url = "github:claymager/idris2-pkgs";
-  inputs.idris2 = {
-    url = "github:idris-lang/Idris2";
-  };
-  inputs.json = {
-    url = "github:stefan-hoeck/idris2-json";
-    flake = false;
-  };
-  inputs.elab-util = {
-    url = "github:stefan-hoeck/idris2-elab-util";
-    flake = false;
-  };
-
   inputs.idris2-pkgs = {
-    url = "github:lizard-business/idris2-pkgs/idris0.6.0";
+    url = "github:xavierzwirtz/idris2-pkgs";
     inputs.nixpkgs.follows = "nixpkgs";
-    inputs.idris2.follows = "idris2";
-    inputs.json.follows = "json";
-    inputs.elab-util.follows = "elab-util";
   };
 
   outputs =
@@ -29,9 +13,6 @@
     , nixpkgs
     , flake-utils
     , idris2-pkgs
-    , idris2
-    , json
-    , elab-util
     }:
     let
       overlay = final: prev:
